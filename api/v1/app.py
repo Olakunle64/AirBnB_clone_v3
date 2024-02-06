@@ -1,7 +1,22 @@
 #!/usr/bin/python3
 """
-This module contains our first version of the api
+This module provides utility functions for processing data.
+
+This module contains various functions for processing and manipulating
+data, including functions for sorting, filtering, and transforming data.
+
+Functions:
+- sort_data(data): Sorts a list of data elements in ascending order.
+- filter_data(data, threshold): Filters data elements based on a threshold value.
+
+Examples:
+    # Sort a list of numbers
+    sorted_numbers = sort_data([3, 1, 4, 1, 5, 9, 2])
+
+    # Filter a list of numbers based on a threshold
+    filtered_numbers = filter_data([10, 20, 30, 40, 50], 30)
 """
+
 from api.v1.views import app_views
 from flask import Flask, jsonify, make_response
 from models import storage
