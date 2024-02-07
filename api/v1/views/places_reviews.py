@@ -35,6 +35,9 @@ def post_get_review_obj(place_id):
         else:
             abort(404)
     elif request.method == 'POST':
+        place = storage.get(Place, place_id)
+        if not place:
+            abort(404)
         review_dict = request.get_json()
         if not review_dict:
             abort(400, description="Not a JSON")
@@ -46,9 +49,6 @@ def post_get_review_obj(place_id):
         key = 'User.{}'.format(places_dict["user_id"])
         user = user_objects.get(key)
         if not user:
-            abort(404)
-        place = storage.get(Place, place_id)
-        if not place:
             abort(404)
         review_dict["place_id"] = place_id
         new_review = Review(**review_dict)
