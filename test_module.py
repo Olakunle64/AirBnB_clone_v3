@@ -9,3 +9,4 @@ if m_imported.__doc__ is None:
     print("No module doc")
 else:
     print("OK")
+    print(m_imported.__doc__)
