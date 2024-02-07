@@ -25,7 +25,7 @@ def post_get_city_obj(state_id):
         """
     if request.method == 'GET':
         state_objects = storage.all(State)
-        key = f'State.{state_id}'
+        key = 'State.{}'.format(state_id)
         state = state_objects.get(key)
         cities_list = []
         if state:
