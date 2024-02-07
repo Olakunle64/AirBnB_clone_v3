@@ -26,7 +26,7 @@ def post_get_place_obj(city_id):
         """
     if request.method == 'GET':
         city_objects = storage.all(City)
-        key = f'City.{city_id}'
+        key = 'City.{}'.format(city_id)
         city = city_objects.get(key)
         places_list = []
         if city:
