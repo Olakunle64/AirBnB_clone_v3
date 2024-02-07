@@ -1,50 +1,32 @@
 #!/usr/bin/python3
 """
-This module provides utility functions for processing data.
-
-This module contains various functions for processing and manipulating
-data, including functions for sorting, filtering, and transforming data.
-
-Functions:
-- sort_data(data): Sorts a list of data elements in ascending order.
-- filter_data(data, threshold): Filters data elements based on a threshold value.
-
-Examples:
-    # Sort a list of numbers
-    sorted_numbers = sort_data([3, 1, 4, 1, 5, 9, 2])
-
-    # Filter a list of numbers based on a threshold
-    filtered_numbers = filter_data([10, 20, 30, 40, 50], 30)
+This module contain a flask web application framework for the airbnb website
 """
-
-from api.v1.views import app_views
-from flask import Flask, jsonify, make_response
-from models import storage
-from flask_cors import CORS
 import os
+from flask import Flask, jsonify
+from models import storage
+from api.v1.views import app_views
+from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 app.register_blueprint(app_views)
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 
 @app.teardown_appcontext
-def closing(exception):
-    """tear down method"""
+def close_session(exception):
+    """close the session after every request"""
     storage.close()
 
 
 @app.errorhandler(404)
-def not_found(error):
-    """Not found method"""
-    return make_response(jsonify({"error": "Not found"}), 404)
+def page_not_found(error):
+    """ the function is called when a page is not found """
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
-    hostname = os.getenv('HBNB_API_HOST')
-    portnum = os.getenv('HBNB_API_PORT')
-    if not hostname:
-        hostname = '0.0.0.0'
-    if not portnum:
-        portnum = 5000
-    app.run(host=hostname, port=portnum, threaded=True)
+    """Execute the following line if not imported"""
+    HOST = os.getenv("HBNB_API_HOST", "0.0.0.0")
+    PORT = os.getenv("HBNB_API_PORT", 5000)
+    app.run(host=HOST, port=PORT, threaded=True)

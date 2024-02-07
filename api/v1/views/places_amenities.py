@@ -25,7 +25,7 @@ def get_amenity_obj(place_id):
         """
     if request.method == 'GET':
         place_objects = storage.all(Place)
-        key = f'Place.{place_id}'
+        key = 'Place.{}'.format(place_id)
         place = place_objects.get(key)
         amenity_list = []
         if place:
@@ -35,7 +35,7 @@ def get_amenity_obj(place_id):
             else:
                 amenities = storage.all(Amenity)
                 for amenity_id in place.amenity_ids:
-                    key = f'Amenity.{amenity_id}'
+                    key = 'Amenity.{}'.format(amenity_id)
                     amenity = amenities.get(key)
                     if amenity:
                         amenity_list.append(amenity.to_dict())
@@ -59,12 +59,12 @@ def post_amenity_obj(place_id, amenity_id):
             create a new amenity with the place_id given
         """
     place_objects = storage.all(Place)
-    key = f'Place.{place_id}'
+    key = 'Place.{}'.format(place_id)
     place = place_objects.get(key)
     if not place:
         abort(404)
     amenity_objects = storage.all(Amenity)
-    key = f'Amenity.{amenity_id}'
+    key = 'Amenity.{}'.format(amenity_id)
     amenity = amenity_objects.get(key)
     if not amenity:
         abort(404)

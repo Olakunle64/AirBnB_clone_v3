@@ -27,7 +27,7 @@ def post_get_review_obj(place_id):
         """
     if request.method == 'GET':
         places_objects = storage.all(Place)
-        key = f'Place.{place_id}'
+        key = 'Place.{}'.format(place_id)
         place = place_objects.get(key)
         review_list = []
         if place:
@@ -45,7 +45,7 @@ def post_get_review_obj(place_id):
         if "user_id" not in review_dict:
             abort(400, description="Missing user_id")
         user_objects = storage.all(User)
-        key = f'User.{places_dict["user_id"]}'
+        key = 'User.{}'.format(places_dict["user_id"])
         user = user_objects.get(key)
         if not user:
             abort(404)
