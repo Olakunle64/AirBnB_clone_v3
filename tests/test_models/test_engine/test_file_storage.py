@@ -78,8 +78,8 @@ class TestFileStorage(unittest.TestCase):
         print("removing file.json....")
         if os.path.exists("file.json"):
             os.remove("file.json")
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
 
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_all_returns_dict(self):
         """Test that all returns the FileStorage.__objects attr"""
         storage = FileStorage()
