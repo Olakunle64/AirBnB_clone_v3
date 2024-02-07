@@ -49,6 +49,11 @@ def post_get_review_obj(place_id):
         user = user_objects.get(key)
         if not user:
             abort(404)
+        places_objects = storage.all(Place)
+        key = 'Place.{}'.format(place_id)
+        place = place_objects.get(key)
+        if not place:
+            abort(404)
         review_dict["place_id"] = place_id
         new_review = Review(**review_dict)
         new_review.save()
