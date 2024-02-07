@@ -48,6 +48,11 @@ def post_get_place_obj(city_id):
         user = user_objects.get(key)
         if not user:
             abort(404)
+        city_objects = storage.all(City)
+        key = 'City.{}'.format(city_id)
+        city = city_objects.get(key)
+        if not city:
+            abort(404)
         places_dict["city_id"] = city_id
         new_place = Place(**places_dict)
         new_place.save()

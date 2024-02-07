@@ -87,13 +87,11 @@ def post_amenity_obj(place_id, amenity_id):
         if os.getenv("HBNB_TYPE_STORAGE") == "db":
             if amenity not in place.amenities:
                 abort(404)
-            # place.amenities.remove(amenity)
+            place.amenities.remove(amenity)
             place.amenities = [a for a in place.amenities if a != amenity]
             return jsonify({}), 200
         else:
             if amenity_id not in place.amenity_ids:
                 abort(404)
-            # place.amenity_ids.remove(amenity_id)
-            place.amenity_ids = [
-                    a for a in place.amenity_ids if a != amenity_id]
+            place.amenity_ids.remove(amenity_id)
             return jsonify({}), 200
