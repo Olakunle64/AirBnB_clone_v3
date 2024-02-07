@@ -45,8 +45,6 @@ def post_get_review_obj(place_id):
             abort(400, description="Missing text")
         if "user_id" not in review_dict:
             abort(400, description="Missing user_id")
-        # user_objects = storage.get(User, review_dict["user_id"])
-        # key = 'User.{}'.format(places_dict["user_id"])
         user = storage.get(User, review_dict["user_id"])
         if not user:
             abort(404)

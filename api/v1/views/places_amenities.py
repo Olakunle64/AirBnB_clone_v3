@@ -58,14 +58,10 @@ def post_amenity_obj(place_id, amenity_id):
         POST:
             create a new amenity with the place_id given
         """
-    place_objects = storage.all(Place)
-    key = 'Place.{}'.format(place_id)
-    place = place_objects.get(key)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
-    amenity_objects = storage.all(Amenity)
-    key = 'Amenity.{}'.format(amenity_id)
-    amenity = amenity_objects.get(key)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     if request.method == 'POST':
@@ -88,7 +84,6 @@ def post_amenity_obj(place_id, amenity_id):
             if amenity not in place.amenities:
                 abort(404)
             place.amenities.remove(amenity)
-            place.amenities = [a for a in place.amenities if a != amenity]
             return jsonify({}), 200
         else:
             if amenity_id not in place.amenity_ids:
