@@ -40,6 +40,11 @@ def post_get_city_obj(state_id):
         city_dict = request.get_json()
         if "name" not in city_dict:
             abort(400, description="Missing name")
+        state_objects = storage.all(State)
+        key = 'State.{}'.format(state_id)
+        state = state_objects.get(key)
+        if not state:
+            abort(404)
         city_dict["state_id"] = state_id
         new_city = City(**city_dict)
         new_city.save()
